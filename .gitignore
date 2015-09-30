@@ -196,3 +196,6 @@ FakesAssemblies/
 *.opt
 
 typings
+client/**/*.js
+client/**/*.css
+client/assets/lib
