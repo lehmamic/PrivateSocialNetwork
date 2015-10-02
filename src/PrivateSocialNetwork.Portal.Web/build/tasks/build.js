@@ -6,7 +6,7 @@ var debug = require('gulp-debug');
 var sass = require('gulp-sass');
 
 var typescript = require('typescript');
-var args = require('../args.js');
+var paths = require('../paths');
 
 var tsProject = ts.createProject('tsconfig.json', {
     typescript: typescript
@@ -21,14 +21,14 @@ gulp.task('build-typescript', function () {
 });
 
 gulp.task('build-sass', function () {
-    return gulp.src(args.sassSources)
+    return gulp.src(paths.sassSources)
         .pipe(debug({ title: 'sass:' }))
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./client'));
 });
 
 gulp.task('copy-lib', function () {
-    gulp.src(args.libFiles)
+    gulp.src(paths.libFiles)
         .pipe(debug({ title: 'lib:' }))
         .pipe(gulp.dest('./client/assets/lib'));
 });

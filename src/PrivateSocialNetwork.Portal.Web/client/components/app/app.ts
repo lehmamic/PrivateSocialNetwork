@@ -9,5 +9,5 @@ import {Component, View} from 'angular2/angular2';
     template: '<h1>Hello {{ name }}</h1>'
 })
 export class PrivateSocialNetworkClient {
-    name:string = 'Test';
+    name:string = 'Lisa';
 }

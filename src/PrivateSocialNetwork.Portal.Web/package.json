@@ -9,12 +9,10 @@
     "traceur": "0.0.91"
   },
   "devDependencies": {
+    "browser-sync": "^2.9.8",
     "gulp": "^3.9.0",
-    "gulp-connect": "^2.2.0",
     "gulp-debug": "^2.1.0",
-    "gulp-livereload": "^3.8.1",
     "gulp-sass": "^2.0.4",
-    "gulp-serve": "^1.2.0",
     "gulp-typescript": "^2.9.0",
     "require-dir": "^0.3.0",
     "typescript": "^1.6.2"
