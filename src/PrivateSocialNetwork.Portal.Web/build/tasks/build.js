@@ -6,6 +6,7 @@ var debug = require('gulp-debug');
 var sass = require('gulp-sass');
 
 var typescript = require('typescript');
+var sourcemaps = require('gulp-sourcemaps');
 var paths = require('../paths');
 
 var tsProject = ts.createProject('tsconfig.json', {
@@ -14,7 +15,7 @@ var tsProject = ts.createProject('tsconfig.json', {
 
 gulp.task('build-typescript', function () {
     var tsResult = tsProject.src()
-        .pipe(debug({ title: 'typescript:' }))
+        //.pipe(debug({ title: 'typescript:' }))
         .pipe(ts(tsProject));
 
     return tsResult.js.pipe(gulp.dest('./'));
@@ -22,15 +23,22 @@ gulp.task('build-typescript', function () {
 
 gulp.task('build-sass', function () {
     return gulp.src(paths.sassSources)
-        .pipe(debug({ title: 'sass:' }))
+        .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('./client'));
+        .pipe(debug({ title: 'sass:' }))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('client/'));
 });
 
 gulp.task('copy-lib', function () {
     gulp.src(paths.libFiles)
-        .pipe(debug({ title: 'lib:' }))
         .pipe(gulp.dest('./client/assets/lib'));
+        
+    gulp.src(paths.angularFiles)
+     .pipe(gulp.dest('./client/assets/lib/angular2'));
+     
+    gulp.src(paths.bootstrapSassFiles)
+        .pipe(gulp.dest('./client/assets/lib/bootstrap-sass'));     
 });
 
 gulp.task('build', ['build-typescript', 'build-sass', 'copy-lib']);

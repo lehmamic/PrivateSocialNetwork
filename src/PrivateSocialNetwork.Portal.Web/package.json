@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "angular2": "2.0.0-alpha.37",
+    "bootstrap-sass": "^3.3.5",
     "es6-module-loader": "^0.16",
     "systemjs": "^0.16",
     "traceur": "0.0.91"
@@ -13,6 +14,7 @@
     "gulp": "^3.9.0",
     "gulp-debug": "^2.1.0",
     "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^1.6.0",
     "gulp-typescript": "^2.9.0",
     "require-dir": "^0.3.0",
     "typescript": "^1.6.2"
