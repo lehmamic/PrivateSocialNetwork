@@ -4,10 +4,12 @@ var gulp = require('gulp');
 var ts = require('gulp-typescript');
 var debug = require('gulp-debug');
 var sass = require('gulp-sass');
+var prefix = require('gulp-autoprefixer');
 
 var typescript = require('typescript');
 var sourcemaps = require('gulp-sourcemaps');
 var paths = require('../paths');
+var config = require('../config');
 
 var tsProject = ts.createProject('tsconfig.json', {
     typescript: typescript
@@ -25,8 +27,9 @@ gulp.task('build-sass', function () {
     return gulp.src(paths.sassSources)
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
-        .pipe(debug({ title: 'sass:' }))
-        .pipe(sourcemaps.write())
+        // .pipe(debug({ title: 'sass:' }))
+        .pipe(prefix(config.autoprefixerBrowsers))
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('client/'));
 });
 
