@@ -46,7 +46,10 @@ gulp.task('copy-lib', function () {
      .pipe(gulp.dest('./client/assets/lib/angular2'));
      
     gulp.src(paths.bootstrapFiles)
-        .pipe(gulp.dest('./client/assets/lib/bootstrap-sass'));     
+        .pipe(gulp.dest('./client/assets/lib/bootstrap-sass'));
+          
+    gulp.src(paths.jqueryFiles)
+        .pipe(gulp.dest('./client/assets/lib/jquery'));         
 });
 
 gulp.task('minify-css', function () {

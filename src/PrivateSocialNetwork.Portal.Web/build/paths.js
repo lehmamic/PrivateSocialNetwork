@@ -19,7 +19,10 @@ module.exports = {
         appRoot + '/**/*.html',
         '!' + '**/assets/**/*.html',],
     angularFiles: [
-        './node_modules/angular2/bundles/*.js'
+        './node_modules/angular2/bundles/*.*'
+    ],
+    jqueryFiles: [
+        './node_modules/jquery/dist/*.*'
     ],
     bootstrapFiles: [
         './node_modules/bootstrap-sass/assets/**/*.*'

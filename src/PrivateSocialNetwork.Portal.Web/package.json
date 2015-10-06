@@ -9,6 +9,7 @@
     "angular2": "2.0.0-alpha.37",
     "bootstrap-sass": "^3.3.5",
     "es6-module-loader": "^0.16",
+    "jquery": "^2.1.4",
     "systemjs": "^0.16",
     "traceur": "0.0.91"
   },
