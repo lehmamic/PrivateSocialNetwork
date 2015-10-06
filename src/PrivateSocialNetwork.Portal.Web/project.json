@@ -12,7 +12,7 @@
 
   "commands": {
     "web": "Microsoft.AspNet.Hosting --config hosting.ini",
-    "Kestrel": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --server.urls http://localhost:5104",
+    "kestrel": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.Kestrel --server.urls http://localhost:5104"
   },
 
   "compilationOptions": {
