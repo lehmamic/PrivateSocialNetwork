@@ -29,5 +29,6 @@ module.exports = {
         './node_modules/es6-module-loader/dist/es6-module-loader.js',
         './node_modules/systemjs/dist/system.src.js'
      ],
-     cleanUpFiles: [outputRoot + '/**']
+     cleanUpFiles: [outputRoot + '/'],
+     copyToOutput: [appRoot + '/**/lib/**/*.*', appRoot + '/**/web.config']
 };

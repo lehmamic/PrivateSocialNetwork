@@ -70,6 +70,19 @@ gulp.task('uglify-js', function() {
         .pipe(gulp.dest(paths.output));
 });
 
+gulp.task('uglify-js', function() {
+    gulp.src(paths.javaScriptFiles)
+        //.pipe(ignore.exclude('**/assets/**/*.js'))
+        .pipe(debug({ title: 'uglify:' }))
+        .pipe(uglify())
+        .pipe(gulp.dest(paths.output));
+});
+
+gulp.task('copy-release', function () {
+    gulp.src(paths.copyToOutput)
+        .pipe(gulp.dest(paths.output));    
+});
+
 gulp.task('build', ['build-typescript', 'build-sass', 'copy-lib']);
 
-gulp.task('build-release', ['clean', 'build', 'minify-css', 'minify-html', 'uglify-js'])
+gulp.task('build-release', ['clean', 'build', 'minify-css', 'minify-html', 'uglify-js', 'copy-release'])
