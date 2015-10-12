@@ -38,19 +38,27 @@ gulp.task('build-sass', function () {
         .pipe(gulp.dest('client/'));
 });
 
-gulp.task('copy-lib', function () {
-    gulp.src(paths.runtimeFiles)
-        .pipe(gulp.dest('./client/assets/lib'));
-        
-    gulp.src(paths.angularFiles)
-     .pipe(gulp.dest('./client/assets/lib/angular2'));
-     
-    gulp.src(paths.bootstrapFiles)
-        .pipe(gulp.dest('./client/assets/lib/bootstrap-sass'));
-          
-    gulp.src(paths.jqueryFiles)
-        .pipe(gulp.dest('./client/assets/lib/jquery'));         
+gulp.task('copy-runtime-dev', function () {
+    return gulp.src(paths.runtimeFiles)
+     .pipe(gulp.dest('./client/assets/lib'));       
 });
+
+gulp.task('copy-angular2-dev', function () {
+    return gulp.src(paths.angularFiles)
+     .pipe(gulp.dest('./client/assets/lib/angular2'));       
+});
+
+gulp.task('copy-bootstrap-dev', function () {
+    return gulp.src(paths.bootstrapFiles)
+     .pipe(gulp.dest('./client/assets/lib/bootstrap-sass'));       
+});
+
+gulp.task('copy-jquery-dev', function () {
+    return gulp.src(paths.jqueryFiles)
+     .pipe(gulp.dest('./client/assets/lib/jquery'));       
+});
+
+gulp.task('copy-lib-dev', ['copy-runtime-dev', 'copy-angular2-dev', 'copy-bootstrap-dev', 'copy-jquery-dev']);
 
 gulp.task('minify-css', function () {
     gulp.src(paths.cssFiles)
@@ -86,6 +94,6 @@ gulp.task('copy-release', function () {
         .pipe(gulp.dest(paths.output));    
 });
 
-gulp.task('build', ['build-typescript', 'build-sass', 'copy-lib']);
+gulp.task('build', ['build-typescript', 'build-sass', 'copy-lib-dev']);
 
 gulp.task('build-release', ['clean', 'build', 'minify-css', 'minify-html', 'uglify-js', 'copy-release'])
