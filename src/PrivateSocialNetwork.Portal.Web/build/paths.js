@@ -5,6 +5,7 @@ var outputRoot = 'wwwroot';
 module.exports = {
     root: 'client',
     output: outputRoot,
+    lib: appRoot + '/assets/lib',
 	sassSources: [
         appRoot + '/**/*.scss',
         '!' + appRoot + '/assets/lib/**}',
@@ -32,6 +33,5 @@ module.exports = {
         './node_modules/es6-module-loader/dist/es6-module-loader.js',
         './node_modules/systemjs/dist/system.src.js'
      ],
-     cleanUpFiles: [outputRoot + '/'],
      copyToOutput: [appRoot + '/**/lib/**/*.*', appRoot + '/**/web.config']
 };

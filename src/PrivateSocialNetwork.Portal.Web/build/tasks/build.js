@@ -20,7 +20,7 @@ var tsProject = ts.createProject('tsconfig.json', {
     typescript: typescript
 });
 
-gulp.task('build-typescript', function () {
+gulp.task('build-typescript', ['copy-lib-dev'], function () {
     var tsResult = tsProject.src()
         //.pipe(debug({ title: 'typescript:' }))
         .pipe(ts(tsProject));
@@ -28,7 +28,7 @@ gulp.task('build-typescript', function () {
     return tsResult.js.pipe(gulp.dest('./'));
 });
 
-gulp.task('build-sass', function () {
+gulp.task('build-sass', ['copy-lib-dev'], function () {
     return gulp.src(paths.sassSources)
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
@@ -38,62 +38,55 @@ gulp.task('build-sass', function () {
         .pipe(gulp.dest('client/'));
 });
 
-gulp.task('copy-runtime-dev', function () {
+gulp.task('copy-runtime-dev', ['clean-lib-dev'], function () {
     return gulp.src(paths.runtimeFiles)
      .pipe(gulp.dest('./client/assets/lib'));       
 });
 
-gulp.task('copy-angular2-dev', function () {
+gulp.task('copy-angular2-dev', ['clean-lib-dev'], function () {
     return gulp.src(paths.angularFiles)
      .pipe(gulp.dest('./client/assets/lib/angular2'));       
 });
 
-gulp.task('copy-bootstrap-dev', function () {
+gulp.task('copy-bootstrap-dev', ['clean-lib-dev'], function () {
     return gulp.src(paths.bootstrapFiles)
      .pipe(gulp.dest('./client/assets/lib/bootstrap-sass'));       
 });
 
-gulp.task('copy-jquery-dev', function () {
+gulp.task('copy-jquery-dev', ['clean-lib-dev'], function () {
     return gulp.src(paths.jqueryFiles)
      .pipe(gulp.dest('./client/assets/lib/jquery'));       
 });
 
 gulp.task('copy-lib-dev', ['copy-runtime-dev', 'copy-angular2-dev', 'copy-bootstrap-dev', 'copy-jquery-dev']);
 
-gulp.task('minify-css', function () {
+gulp.task('minify-css', ['build-dev'], function () {
     gulp.src(paths.cssFiles)
         .pipe(minifyCss())
         .pipe(rev())
         .pipe(gulp.dest(paths.output));
 });
 
-gulp.task('minify-html', function() {
+gulp.task('minify-html', ['build-dev'], function() {
     gulp.src(paths.htmlFiles)
         .pipe(minifyHtml())
         .pipe(gulp.dest(paths.output));
 });
 
-gulp.task('uglify-js', function() {
+gulp.task('uglify-js', ['build-dev'], function() {
     gulp.src(paths.javaScriptFiles)
         //.pipe(ignore.exclude('**/assets/**/*.js'))
-        .pipe(debug({ title: 'uglify:' }))
+        // .pipe(debug({ title: 'uglify:' }))
         .pipe(uglify())
         .pipe(gulp.dest(paths.output));
 });
 
-gulp.task('uglify-js', function() {
-    gulp.src(paths.javaScriptFiles)
-        //.pipe(ignore.exclude('**/assets/**/*.js'))
-        .pipe(debug({ title: 'uglify:' }))
-        .pipe(uglify())
-        .pipe(gulp.dest(paths.output));
-});
 
-gulp.task('copy-release', function () {
+gulp.task('copy-release', ['clean-release', 'copy-lib-dev'], function () {
     gulp.src(paths.copyToOutput)
         .pipe(gulp.dest(paths.output));    
 });
 
-gulp.task('build', ['build-typescript', 'build-sass', 'copy-lib-dev']);
+gulp.task('build-dev', ['build-typescript', 'build-sass']);
 
-gulp.task('build-release', ['clean', 'build', 'minify-css', 'minify-html', 'uglify-js', 'copy-release'])
+gulp.task('build-release', ['clean-release', 'build-dev', 'minify-css', 'minify-html', 'uglify-js','copy-release'])
