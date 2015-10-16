@@ -1,8 +1,8 @@
 
-var outputRoot = 'wwwroot';
+var outputRoot = '../PrivateSocialNetwork.Portal.Web/wwwroot';
 
 module.exports = {
-    root: '/',
+    root: './',
     output: outputRoot,
 	sassSources: [
         '**/*.scss',
