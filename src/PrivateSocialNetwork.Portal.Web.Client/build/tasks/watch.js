@@ -7,7 +7,7 @@ function reportChange(event) {
     console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
 }
 
-gulp.task('watch', ['build-dev'], function () {
+gulp.task('watch', ['build'], function () {
 
     gulp.watch(paths.typeScriptSources, ['build-typescript', browserSync.reload]).on('change', reportChange);
     gulp.watch(paths.SassSources, ['build-sass', browserSync.reload]).on('change', reportChange);
