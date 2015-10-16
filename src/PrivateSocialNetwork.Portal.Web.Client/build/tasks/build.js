@@ -7,9 +7,7 @@ var sass = require('gulp-sass');
 var prefix = require('gulp-autoprefixer');
 var minifyCss = require('gulp-minify-css');
 var minifyHtml = require('gulp-minify-html');
-var rev = require('gulp-rev');
 var uglify = require('gulp-uglify');
-var ignore = require('gulp-ignore');
 
 var typescript = require('typescript');
 var sourcemaps = require('gulp-sourcemaps');
@@ -23,6 +21,7 @@ var tsProject = ts.createProject('tsconfig.json', {
 gulp.task('build-typescript', function () {
     var tsResult = tsProject.src()
         //.pipe(debug({ title: 'typescript:' }))
+        //.pipe(changed(paths.output, {extension: '.css'}))
         .pipe(ts(tsProject));
 
     return tsResult.js.pipe(gulp.dest('./'));
@@ -38,24 +37,23 @@ gulp.task('build-sass', function () {
         .pipe(gulp.dest('./'));
 });
 
-gulp.task('minify-css', ['build-dev'], function () {
+gulp.task('minify-css', ['build'], function () {
     gulp.src(paths.cssFiles)
         .pipe(minifyCss())
-        .pipe(rev())
-        .pipe(gulp.dest(paths.output));
+        .pipe(gulp.dest('./'));
 });
 
-gulp.task('minify-html', ['build-dev'], function() {
+gulp.task('minify-html', ['build'], function() {
     gulp.src(paths.htmlFiles)
         .pipe(minifyHtml())
-        .pipe(gulp.dest(paths.output));
+        .pipe(gulp.dest('./'));
 });
 
-gulp.task('uglify-js', ['build-dev'], function() {
+gulp.task('uglify-js', ['build'], function() {
     gulp.src(paths.javaScriptFiles)
         // .pipe(debug({ title: 'uglify:' }))
         .pipe(uglify())
-        .pipe(gulp.dest(paths.output));
+        .pipe(gulp.dest('./'));
 });
 
 
@@ -64,6 +62,4 @@ gulp.task('uglify-js', ['build-dev'], function() {
 //         .pipe(gulp.dest(paths.output));    
 // });
 
-gulp.task('build-dev', ['build-typescript', 'build-sass']);
-
-gulp.task('build-release', ['clean-release', 'build-dev', 'minify-css', 'minify-html', 'uglify-js'])
+gulp.task('build', ['build-typescript', 'build-sass']);

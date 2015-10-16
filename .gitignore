@@ -196,7 +196,12 @@ FakesAssemblies/
 *.opt
 
 **/client/**/*.js
+**/app/**/*.js
 **/client/**/*.css
 *.map
 **/client/assets/lib
 **/wwwroot
+
+**/app/**/*.js
+*.css
+*.map

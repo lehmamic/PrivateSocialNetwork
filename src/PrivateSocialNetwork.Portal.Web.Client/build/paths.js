@@ -15,9 +15,12 @@ module.exports = {
         '!node_modules/**'],
     javaScriptFiles: [
         '**/*.js',
+        '!gulpfile.js',
+        '!build/**',
         '!node_modules/**'],
      htmlFiles: [
-        '/**/*.html',
+        '**/*.html',
+        '!index.html',
         '!node_modules/**'],
      copyToOutput: ['/**/lib/**/*.*','/**/web.config']
 };
