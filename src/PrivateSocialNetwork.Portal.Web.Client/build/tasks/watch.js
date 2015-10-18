@@ -11,5 +11,6 @@ gulp.task('watch', ['build'], function () {
 
     gulp.watch(paths.typeScriptSources, ['build-typescript', browserSync.reload]).on('change', reportChange);
     gulp.watch(paths.SassSources, ['build-sass', browserSync.reload]).on('change', reportChange);
+    gulp.watch(paths.htmlFiles, [browserSync.reload]).on('change', reportChange);
 
 });
