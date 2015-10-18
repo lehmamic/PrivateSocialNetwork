@@ -6083,4 +6083,7 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+body {
+  padding-top: 50px; }
+
 /*# sourceMappingURL=main.css.map */

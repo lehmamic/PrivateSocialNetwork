@@ -29,7 +29,7 @@ gulp.task('build-typescript', function () {
 
 gulp.task('build-sass', function () {
     return gulp.src(paths.sassSources)
-        .pipe(debug({ title: 'sass:' }))
+        //.pipe(debug({ title: 'sass:' }))
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(prefix(config.autoprefixerBrowsers))
