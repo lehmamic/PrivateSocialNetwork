@@ -1,15 +1,14 @@
 ﻿import {Component, View} from 'angular2/angular2';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {Login} from '../login/login';
+import {Navbar} from '../navbar/navbar'
 
 @Component({
     selector: 'social-network-client'
 })
 @View({
-    template: `<h1>Hello {{ name }}</h1>
-    <router-outlet></router-outlet>
-    `,
-    directives: [ROUTER_DIRECTIVES]
+    templateUrl: 'app/components/social-network-client/social-network-client.html',
+    directives: [ROUTER_DIRECTIVES, Navbar]
 })
 @RouteConfig([
     { path: '/login', component:Login, as: 'Login' },
