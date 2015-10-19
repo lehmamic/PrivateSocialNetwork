@@ -1,0 +1,12 @@
+﻿@import './bootstrap-theme.scss';
+@import './common.scss';
+
+body {
+	padding-top: $navbar-height;
+}
+
+@media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
+}

@@ -197,3 +197,7 @@ FakesAssemblies/
 
 *.map
 **/wwwroot
+
+**/app/**/*.js
+*.css
+*.map
