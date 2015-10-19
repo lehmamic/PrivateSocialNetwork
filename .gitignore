@@ -195,8 +195,5 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 
-**/client/**/*.js
-**/client/**/*.css
 *.map
-**/client/assets/lib
 **/wwwroot
