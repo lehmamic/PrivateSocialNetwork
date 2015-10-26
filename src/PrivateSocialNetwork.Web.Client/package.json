@@ -6,10 +6,10 @@
     "build": "gulp prepare-release"
   },
   "dependencies": {
-    "angular2": "2.0.0-alpha.42",
-    "systemjs": "0.19.2",
+    "angular2": "^2.0.0-alpha.44",
     "bootstrap-sass": "^3.3.5",
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+    "systemjs": "0.19.2"
   },
   "devDependencies": {
     "browser-sync": "^2.9.8",
