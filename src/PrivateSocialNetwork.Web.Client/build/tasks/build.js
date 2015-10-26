@@ -20,11 +20,14 @@ var tsProject = ts.createProject('tsconfig.json', {
 
 gulp.task('build-typescript', function () {
     var tsResult = tsProject.src()
+        .pipe(sourcemaps.init())
         //.pipe(debug({ title: 'typescript:' }))
         //.pipe(changed(paths.output, {extension: '.css'}))
         .pipe(ts(tsProject));
 
-    return tsResult.js.pipe(gulp.dest('./'));
+    return tsResult.js
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest('./'));
 });
 
 gulp.task('build-sass', function () {
