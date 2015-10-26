@@ -29,6 +29,7 @@ namespace PrivateSocialNetwork.Portal.Web
         {
             // Configure the HTTP request pipeline.
             app.UseStaticFiles();
+            app.UseDefaultFiles();
 
             // Add MVC to the request pipeline.
             app.UseMvc();
