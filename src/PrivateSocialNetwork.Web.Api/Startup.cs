@@ -4,14 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.Dnx.Runtime;
+using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
+using Microsoft.Framework.Logging;
 
-namespace PrivateSocialNetwork.Portal.Web
+namespace PrivateSocialNetwork.Web.Api
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        private readonly Platform platform;
+        private IConfigurationRoot configuration;
+
+        public Startup(IApplicationEnvironment applicationEnvironment, IRuntimeEnvironment runtimeEnvironment)
         {
+            // Below code demonstrates usage of multiple configuration sources. For instance a setting say 'setting1'
+            // is found in both the registered sources, then the later source will win. By this way a Local config
+            // can be overridden by a different setting while deployed remotely.
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(applicationEnvironment.ApplicationBasePath)
+                .AddJsonFile("config.json")
+                //All environment variables in the process's context flow in as configuration values.
+                .AddEnvironmentVariables();
+
+            configuration = builder.Build();
+            platform = new Platform(runtimeEnvironment);
         }
 
         // This method gets called by a runtime.
@@ -25,11 +42,17 @@ namespace PrivateSocialNetwork.Portal.Web
         }
 
         // Configure is called after ConfigureServices is called.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.MinimumLevel = LogLevel.Information;
+            loggerFactory.AddConsole();
+            loggerFactory.AddDebug();
+
+            // Add the platform handler to the request pipeline.
+            app.UseIISPlatformHandler();
+
             // Configure the HTTP request pipeline.
             app.UseStaticFiles();
-            app.UseDefaultFiles();
 
             // Add MVC to the request pipeline.
             app.UseMvc();

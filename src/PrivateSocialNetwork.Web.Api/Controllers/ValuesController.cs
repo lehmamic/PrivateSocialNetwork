@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 
-namespace PrivateSocialNetwork.Portal.Web.Controllers
+namespace PrivateSocialNetwork.Web.Api.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
