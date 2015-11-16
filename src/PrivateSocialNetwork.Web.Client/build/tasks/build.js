@@ -9,14 +9,34 @@ var minifyCss = require('gulp-minify-css');
 var minifyHtml = require('gulp-minify-html');
 var uglify = require('gulp-uglify');
 var changed = require('gulp-changed');
+var filter = require('gulp-filter');
+var sourcemaps = require('gulp-sourcemaps');
 
 var typescript = require('typescript');
-var sourcemaps = require('gulp-sourcemaps');
+var merge = require('merge-stream');
 var paths = require('../paths');
 var config = require('../config');
 
 var tsProject = ts.createProject(paths.root + 'tsconfig.json', {
     typescript: typescript
+});
+
+gulp.task('copy-vendor', function() {
+   var scripts = gulp.src(paths.vendor)
+        //.pipe(debug({ title: 'vendor:' }))
+        .pipe(filter('*.js'))
+        .pipe(gulp.dest(paths.temp + 'assets/scripts')) 
+   
+   var styles = gulp.src(paths.vendor)
+        .pipe(filter('*.css'))
+        .pipe(gulp.dest(paths.temp + 'assets/styles'))
+        
+   var fonts = gulp.src(paths.vendor)
+        .pipe(debug({ title: 'vendor:' }))
+        .pipe(filter(['*.eot', '*.svg', '*.ttf', '*.woff', '*.woff2']))
+        .pipe(gulp.dest(paths.temp + 'assets/fonts'))   
+        
+   return merge(scripts, styles, fonts);
 });
 
 gulp.task('build-typescript', function () {
