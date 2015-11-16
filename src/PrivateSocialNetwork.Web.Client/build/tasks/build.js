@@ -8,13 +8,14 @@ var prefix = require('gulp-autoprefixer');
 var minifyCss = require('gulp-minify-css');
 var minifyHtml = require('gulp-minify-html');
 var uglify = require('gulp-uglify');
+var changed = require('gulp-changed');
 
 var typescript = require('typescript');
 var sourcemaps = require('gulp-sourcemaps');
 var paths = require('../paths');
 var config = require('../config');
 
-var tsProject = ts.createProject('tsconfig.json', {
+var tsProject = ts.createProject(paths.root + 'tsconfig.json', {
     typescript: typescript
 });
 
@@ -22,12 +23,12 @@ gulp.task('build-typescript', function () {
     var tsResult = tsProject.src()
         .pipe(sourcemaps.init())
         //.pipe(debug({ title: 'typescript:' }))
-        //.pipe(changed(paths.output, {extension: '.css'}))
+        .pipe(changed(paths.output, {extension: '.js'}))
         .pipe(ts(tsProject));
 
     return tsResult.js
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest(paths.temp));
 });
 
 gulp.task('build-sass', function () {
