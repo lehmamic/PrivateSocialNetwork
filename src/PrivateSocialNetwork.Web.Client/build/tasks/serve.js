@@ -11,7 +11,7 @@ gulp.task('serve', ['watch'], function (done) {
         open: false,
         port: 9000,
         server: {
-            baseDir: [paths.root],
+            baseDir: [paths.temp],
             middleware: function (req, res, next) {
                 res.setHeader('Access-Control-Allow-Origin', '*');
                 next();

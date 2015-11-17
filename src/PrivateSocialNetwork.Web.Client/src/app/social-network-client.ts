@@ -7,7 +7,7 @@ import {NAVBAR_DIRECTIVES} from './components/navbar/navbar'
     selector: 'social-network-client'
 })
 @View({
-    templateUrl: 'app/components/social-network-client/social-network-client.html',
+    templateUrl: 'app/social-network-client.html',
     directives: [ROUTER_DIRECTIVES, NAVBAR_DIRECTIVES]
 })
 @RouteConfig([

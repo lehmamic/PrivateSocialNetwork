@@ -32,18 +32,24 @@ gulp.task('copy-vendor', function() {
         .pipe(gulp.dest(paths.temp + 'assets/styles'))
         
    var fonts = gulp.src(paths.vendor)
-        .pipe(debug({ title: 'vendor:' }))
+        //.pipe(debug({ title: 'vendor:' }))
         .pipe(filter(['*.eot', '*.svg', '*.ttf', '*.woff', '*.woff2']))
         .pipe(gulp.dest(paths.temp + 'assets/fonts'))   
         
    return merge(scripts, styles, fonts);
 });
 
+gulp.task('copy-html', function() {
+   return gulp.src(paths.root + '**/*.html')
+   .pipe(changed(paths.temp, {extension: '.html'}))
+        .pipe(gulp.dest(paths.temp)); 
+});
+
 gulp.task('build-typescript', function () {
     var tsResult = tsProject.src()
         .pipe(sourcemaps.init())
         //.pipe(debug({ title: 'typescript:' }))
-        .pipe(changed(paths.output, {extension: '.js'}))
+        .pipe(changed(paths.temp, {extension: '.js'}))
         .pipe(ts(tsProject));
 
     return tsResult.js
@@ -52,13 +58,14 @@ gulp.task('build-typescript', function () {
 });
 
 gulp.task('build-sass', function () {
-    return gulp.src(paths.sassSources)
+    return gulp.src(paths.root + '**/*.scss')
         //.pipe(debug({ title: 'sass:' }))
         .pipe(sourcemaps.init())
+        .pipe(changed(paths.temp, {extension: '.css'}))
         .pipe(sass().on('error', sass.logError))
         .pipe(prefix(config.autoprefixerBrowsers))
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest(paths.temp));
 });
 
 gulp.task('minify-css', ['build'], function () {
@@ -86,4 +93,4 @@ gulp.task('uglify-js', ['build'], function() {
 //         .pipe(gulp.dest(paths.output));    
 // });
 
-gulp.task('build', ['build-typescript', 'build-sass']);
+gulp.task('build', ['copy-vendor', 'copy-html', 'build-typescript', 'build-sass']);
