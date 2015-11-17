@@ -4,16 +4,16 @@ import {Login} from './components/login/login';
 import {NAVBAR_DIRECTIVES} from './components/navbar/navbar'
 
 @Component({
-    selector: 'social-network-client'
+    selector: 'private-social-network-app'
 })
 @View({
-    templateUrl: 'app/social-network-client.html',
+    templateUrl: 'app/private-social-network.html',
     directives: [ROUTER_DIRECTIVES, NAVBAR_DIRECTIVES]
 })
 @RouteConfig([
     { path: '/login', component:Login, as: 'Login' },
     { path: '/', redirectTo: '/login' }
 ])
-export class PrivateSocialNetworkClient {
+export class PrivateSocialNetworkApp {
     name:string = 'Lisa';
 }
