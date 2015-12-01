@@ -197,3 +197,7 @@ FakesAssemblies/
 
 dist/
 .tmp/
+*.map
+.vs
+.vscode
+.idea
