@@ -3,7 +3,7 @@
   "name": "PrivateSocialNetwork",
   "private": true,
   "scripts": {
-    "build": "gulp prepare-release"
+    "build": "gulp build-dist"
   },
   "dependencies": {
     "angular2": "^2.0.0-alpha.44",
