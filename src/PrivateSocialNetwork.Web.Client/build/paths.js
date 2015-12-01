@@ -1,5 +1,5 @@
 
-var outputRoot = './dest/';
+var outputRoot = './dist/';
 var sourceRoot = './src/';
 var tempRoot = './.tmp/';
 

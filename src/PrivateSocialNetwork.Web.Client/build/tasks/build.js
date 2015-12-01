@@ -11,6 +11,7 @@ var uglify = require('gulp-uglify');
 var changed = require('gulp-changed');
 var filter = require('gulp-filter');
 var sourcemaps = require('gulp-sourcemaps');
+var usemin = require('gulp-usemin');
 
 var typescript = require('typescript');
 var merge = require('merge-stream');
@@ -69,22 +70,33 @@ gulp.task('build-sass', function () {
 });
 
 gulp.task('minify-css', ['build'], function () {
-    gulp.src(paths.cssFiles)
+    gulp.src([paths.temp + '**/*.css', '!' + paths.temp + 'assets/**/*.css'])
         .pipe(minifyCss())
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest(paths.output));
 });
 
 gulp.task('minify-html', ['build'], function() {
-    gulp.src(paths.htmlFiles)
+    gulp.src(paths.temp + '**/*.html', '!' + paths.temp + 'assets/**/*.html')
         .pipe(minifyHtml())
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest(paths.output));
 });
 
 gulp.task('uglify-js', ['build'], function() {
-    gulp.src(paths.javaScriptFiles)
-        // .pipe(debug({ title: 'uglify:' }))
+    gulp.src(paths.temp + '**/*.js', '!' + paths.temp + 'assets/**/*.js')
+        //.pipe(debug({ title: 'uglify:' }))
         .pipe(uglify())
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest(paths.output));
+});
+
+gulp.task('usemin', ['build'], function() {
+  return gulp.src(paths.temp + '*.html')
+    .pipe(usemin({
+      css: [minifyCss(), 'concat'],//rev() ],
+      html: [minifyHtml({ empty: true })],
+      vendorjs: [ uglify(), 'concat'],//, rev() ],
+      vendorcss: [ minifyCss(), 'concat' ]
+    }))
+    .pipe(gulp.dest(paths.output));
 });
 
 
