@@ -69,26 +69,26 @@ gulp.task('build-sass', function () {
         .pipe(gulp.dest(paths.temp));
 });
 
-gulp.task('minify-css', ['build'], function () {
+gulp.task('minify-css', ['build-dev'], function () {
     gulp.src([paths.temp + '**/*.css', '!' + paths.temp + 'assets/**/*.css'])
         .pipe(minifyCss())
         .pipe(gulp.dest(paths.output));
 });
 
-gulp.task('minify-html', ['build'], function() {
-    gulp.src(paths.temp + '**/*.html', '!' + paths.temp + 'assets/**/*.html')
+gulp.task('minify-html', ['build-dev'], function() {
+    gulp.src([paths.temp + '**/*.html', '!' + paths.temp + 'assets/**/*.html'])
         .pipe(minifyHtml())
         .pipe(gulp.dest(paths.output));
 });
 
-gulp.task('uglify-js', ['build'], function() {
-    gulp.src(paths.temp + '**/*.js', '!' + paths.temp + 'assets/**/*.js')
+gulp.task('uglify-js', ['build-dev'], function() {
+    gulp.src([paths.temp + '**/*.js', '!' + paths.temp + 'assets/**/*.js'])
         //.pipe(debug({ title: 'uglify:' }))
         .pipe(uglify())
         .pipe(gulp.dest(paths.output));
 });
 
-gulp.task('usemin', ['build'], function() {
+gulp.task('usemin', ['build-dev'], function() {
   return gulp.src(paths.temp + '*.html')
     .pipe(usemin({
       css: [minifyCss(), 'concat'],//rev() ],
@@ -105,4 +105,6 @@ gulp.task('usemin', ['build'], function() {
 //         .pipe(gulp.dest(paths.output));    
 // });
 
-gulp.task('build', ['copy-vendor', 'copy-html', 'build-typescript', 'build-sass']);
+gulp.task('build-dev', ['copy-vendor', 'copy-html', 'build-typescript', 'build-sass']);
+
+gulp.task('build-dist', ['usemin', 'uglify-js', 'minify-html', 'minify-css']);
